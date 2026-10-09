@@ -15,5 +15,14 @@ test:
 lint:
 	poetry run ruff check .
 
-format:
-	poetry run ruff format .
+fix:
+	poetry run ruff check --fix . && ruff format .
+
+db-revision:
+	poetry run alembic revision --autogenerate -m "$(msg)"
+
+db-migrate:
+	poetry run alembic upgrade head
+
+db-rollback:
+	poetry run alembic downgrade -1
